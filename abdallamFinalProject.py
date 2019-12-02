@@ -171,6 +171,118 @@ class Particle():
 				self.speed = 10
 				return True
 
+	# this function is responsible for all the movment that the 
+	# computer player makes.
+	# the AI will depend on dividing the play ground into boxes and 
+	# when the ball is in each one of them a different action will be done by the 
+	# computer player
+	def AIFunc(self,jumpingC,leadX2,playerWidth):
+		# this makes the players collide with each other and not go
+		# throgh each other
+		if leadX2 + 5 < 995 and leadX2 - 5 > 180 + 40:
+			# this checks if the ball is inside the first box 
+			if self.ballX <= 300:
+				leadX2 -= 5
+				# this checks if the ball is in front of the player 
+				# or behind him.
+				# if the ball is behind him the player moves backward 
+				if self.ballX + self.ballSize > leadX2 + playerWidth\
+				or self.ballSize + self.ballSize > leadX2\
+				or self.ballX > leadX2 + playerWidth \
+				or self.ballX > leadX2:
+					leadX2 += 10  
+			# this checks if the ball is inside the second box 
+			if 300 < self.ballX <= 600: 
+				leadX2 -= 5
+				# this checks if the ball is in front of the player 
+				# or behind him.
+				# if the ball is behind him the player moves backward 
+				if self.ballX + self.ballSize > leadX2 + playerWidth\
+				or self.ballSize + self.ballSize > leadX2\
+				or self.ballX > leadX2 + playerWidth \
+				or self.ballX > leadX2:
+					leadX2 += 10 
+			# this checks if the ball is inside the third box 
+			if 600 < self.ballX <= 900:
+				leadX2 -= 5
+				# this checks if the ball is in front of the player 
+				# or behind him.
+				# if the ball is behind him the player moves backward 
+				if self.ballX + self.ballSize > leadX2 + playerWidth\
+				or self.ballSize + self.ballSize > leadX2\
+				or self.ballX > leadX2 + playerWidth \
+				or self.ballX > leadX2:
+					leadX2 += 10 
+			# this checks if the ball is inside the fourth box 
+			if 900 < self.ballX <= 1200: 
+				leadX2 -= 5
+				# this checks if the ball is in front of the player 
+				# or behind him.
+				# if the ball is behind him the player moves backward 
+				if self.ballX + self.ballSize > leadX2 + playerWidth\
+				or self.ballSize + self.ballSize > leadX2\
+				or self.ballX > leadX2 + playerWidth \
+				or self.ballX > leadX2:
+					leadX2 += 10 
+			# this checks if the ball is inside the fifth box 
+			if self.ballX <= 300 and self.ballY < 300:
+				leadX2 -= 5
+				# because the ball reached a ceratin height the 
+				# the player shuld jump
+				jumpingC = True
+				# this checks if the ball is in front of the player 
+				# or behind him.
+				# if the ball is behind him the player moves backward 
+				if self.ballX + self.ballSize > leadX2 + playerWidth\
+				or self.ballSize + self.ballSize > leadX2\
+				or self.ballX > leadX2 + playerWidth \
+				or self.ballX > leadX2:
+					leadX2 += 5
+			# this checks if the ball is inside the sixth box 
+			if 300 < self.ballX <= 600 and self.ballY < 300:
+				leadX2 -= 5
+				# because the ball reached a ceratin height the 
+				# the player shuld jump
+				jumpingC = True
+				# this checks if the ball is in front of the player 
+				# or behind him.
+				# if the ball is behind him the player moves backward 
+				if self.ballX + self.ballSize > leadX2 + playerWidth\
+				or self.ballSize + self.ballSize > leadX2\
+				or self.ballX > leadX2 + playerWidth \
+				or self.ballX > leadX2:
+					leadX2 += 5
+			# this checks if the ball is inside the seventh box 
+			if 600 < self.ballX <= 900 and self.ballY < 300:
+				leadX2 -= 5
+				# because the ball reached a ceratin height the 
+				# the player shuld jump
+				jumpingC = True
+				# this checks if the ball is in front of the player 
+				# or behind him.
+				# if the ball is behind him the player moves backward 
+				if self.ballX + self.ballSize > leadX2 + playerWidth\
+				or self.ballSize + self.ballSize > leadX2\
+				or self.ballX > leadX2 + playerWidth \
+				or self.ballX > leadX2:
+					leadX2 += 5
+			# this checks if the ball is inside the eightth box 
+			if 900 < self.ballX <= 1200 and self.ballY < 300:
+				leadX2 -= 5 
+				# because the ball reached a ceratin height the 
+				# the player shuld jump
+				jumpingC = True
+				# this checks if the ball is in front of the player 
+				# or behind him.
+				# if the ball is behind him the player moves backward 
+				if self.ballX + self.ballSize > leadX2 + playerWidth\
+				or self.ballSize + self.ballSize > leadX2\
+				or self.ballX > leadX2 + playerWidth \
+				or self.ballX > leadX2:
+					leadX2 += 5 
+		return [leadX2,jumpingC]
+
+
 # this function detects the hover of the mouse over the buttons
 # and changes them accordingly and opens new windows according to the button pressed 
 def buttonHover(x,y,width,height,inactive,active,action = None):
@@ -255,8 +367,6 @@ def jumping(jumping1,maxJump1,leadY1,up,jumpHeight1):
 			up = True
 	returned += [jumping1] + [maxJump1] + [leadY1] + [up] + [jumpHeight1]
 	return returned
-
-
 
 # this function is responsible for showing the 
 # endgame window when the timer hits 0
@@ -370,9 +480,6 @@ def playerVS():
 	ballX = 600
 	ballY = 450
 	ballSize = 80
-	##########Sprites##########
-	right = False
-	i = 0 
 	########Scores############
 	score1 = 0
 	score2 = 0
@@ -390,11 +497,34 @@ def playerVS():
 	run = True
 	while run:
 		# Here we draw the goals 
-		playersWindow.fill((255,255,255))
 		goalLR = pygame.draw.rect(playersWindow,(255,0,0)\
 			,(goalLX,goalLY,goalW,20),2)
 		goalRR = pygame.draw.rect(playersWindow,(255,0,0)\
 			,(goalRX,goalRY,goalW,20),2)
+
+		# here we draw the hitboxes for thentwo players 
+		hitboxP1 = (leadX1,leadY1,playerWidth,playerHeight)
+		hitboxP2 = (leadX2 + 25,leadY2,playerWidth,playerHeight)
+		# we draw the rectangles around the hitboxes 
+		rectP1 = pygame.draw.rect(playersWindow,(255,0,0),hitboxP1,2)
+		rectP2 = pygame.draw.rect(playersWindow,(255,0,0),hitboxP2,2)
+
+		# here we check for collisions between the ball and the goals 
+		particle.goalBounce(goalLR,goalRR,goalW,goalH)
+
+		# here we apply the collision function and call the collide function 
+		# accordingly 
+		isCollided = particle.isCollision(rectP1)
+		if isCollided:
+			particle.collide(leadX1,leadY1,leadXChange1)
+
+		isCollided2 = particle.isCollision2(rectP2)
+		if isCollided2:
+			particle.collide(leadX2,leadY2,leadXChange2)
+
+		playersWindow.fill((96,168,48),rect = (0,430,1200,170))
+		playersWindow.fill(((115,194,251)),rect = (0,0,1200,430))
+		
 		# here we chwck all the events and handle them 
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
@@ -411,8 +541,7 @@ def playerVS():
 				if event.key == pygame.K_UP:
 					if jumping1 == False and leadY1 == jumpHeight1:
 						jumping1 = True
-				#if event.key == pygame.K_DOWN:
-				#	leadYChange1 = 1
+
 				if event.key == pygame.K_d:
 					leadXChange2 = 5
 				if event.key == pygame.K_a:
@@ -420,8 +549,7 @@ def playerVS():
 				if event.key == pygame.K_w:
 					if jumping2 == False and leadY2 == jumpHeight2:
 						jumping2 = True
-				#if event.key == pygame.K_s:
-				#	leadYChange2 = 1
+
 			if event.type == pygame.KEYUP:
 				if event.key == pygame.K_RIGHT:
 					leadXChange1 = 0
@@ -450,17 +578,9 @@ def playerVS():
 			jumping2,maxJump2,leadY2,up2,jumpHeight2 = returned[0],returned[1]\
 			,returned[2],returned[3],returned[4]
 
-		# here we draw the hitboxes for thentwo players 
-		hitboxP1 = (leadX1,leadY1,playerWidth,playerHeight)
-		hitboxP2 = (leadX2 + 25,leadY2,playerWidth,playerHeight)
-		# we draw the rectangles around the hitboxes 
-		rectP1 = pygame.draw.rect(playersWindow,(255,0,0),hitboxP1,2)
-		rectP2 = pygame.draw.rect(playersWindow,(255,0,0),hitboxP2,2)
-
 		# here we move the ball
 		particle.move()
-		# here we check for collisions between the ball and the goals 
-		particle.goalBounce(goalLR,goalRR,goalW,goalH)
+		
 		# here we check if the ball hit any walls
 		particle.bounce(goalLX,goalLY,goalW,goalH)
 		# here we draw the ball
@@ -503,17 +623,6 @@ def playerVS():
 				leadX1 -= 5
 			if leadX2 + playerWidth < maxWidthR: 
 				leadX2 += 5
-
-		# here we apply the collision function and call the collide function 
-		# accordingly 
-		isCollided = particle.isCollision(rectP1)
-		if isCollided:
-			particle.collide(leadX1,leadY1,leadXChange1)
-
-		isCollided2 = particle.isCollision2(rectP2)
-		if isCollided2:
-			particle.collide2(leadX2,leadY2,leadXChange2)
-
 
 		insertMessage("Player 1: " + str(score1),\
 			(0,180,0),20,[10,0],playersWindow)
@@ -564,8 +673,6 @@ def ComputerVS():
 	player2imgF = pygame.image.load("player forward 2.png")
 
 	player2imgB = pygame.image.load("player backward 2.png")
-	player2imgBmask = pygame.mask.from_surface(player2imgB)
-	player2imgBrect = player2imgB.get_rect()
 
 	player2imgJ = pygame.image.load("player jumping 2.png")
 	player2imgS = pygame.image.load("player shooting 2.png")
@@ -597,6 +704,11 @@ def ComputerVS():
 	jumpHeight1 = leadY1
 	maxJump1 = 350
 	up1 = True
+	jumpingC = False
+	jumpHeight2 = leadY2
+	maxJump2 = 350
+	up2 = True
+	leadY2b = 0 
 	########ballMovment#########
 	ballX = 600
 	ballY = 450
@@ -612,26 +724,55 @@ def ComputerVS():
 	frameRate = 80
 	startTime = 90
 	gameend = False
+
+	compR = False
+	compL = False
+	countComp = 0 
 	
 
 	# here we create the ball 
 	particle = Particle(ballX,ballY,ballSize,ball)
 
+	player2imgBmask = pygame.mask.from_surface(player2imgB)
+	player2imgBrect = player2imgB.get_rect()
+
 	clock = pygame.time.Clock()
 	run = True
 	while run:
-		# Here we draw the goals 
-		playersWindow.fill((255,255,255))
+		
+		# here we draw the hitboxes for thentwo players 
+		hitboxP1 = (leadX1,leadY1,playerWidth,playerHeight)
+		hitboxP2 = (leadX2 + 25,leadY2,playerWidth,playerHeight)
+		# we draw the rectangles around the hitboxes 
+		rectP1 = pygame.draw.rect(playersWindow,(255,0,0),hitboxP1,2)
+		rectP2 = pygame.draw.rect(playersWindow,(255,0,0),hitboxP2,2)
+
 		goalLR = pygame.draw.rect(playersWindow,(255,0,0)\
 			,(goalLX,goalLY,goalW,20),2)
 		goalRR = pygame.draw.rect(playersWindow,(255,0,0)\
 			,(goalRX,goalRY,goalW,20),2)
+
+		# here we check for collisions between the ball and the goals 
+		particle.goalBounce(goalLR,goalRR,goalW,goalH)
+
+		# here we apply the collision function and call the collide function 
+		# accordingly 
+		isCollided = particle.isCollision(rectP1)
+		if isCollided:
+			particle.collide(leadX1,leadY1,leadXChange1)
+
+		isCollided2 = particle.isCollision2(rectP2)
+		if isCollided2:
+			particle.collide2(leadX2,leadY2,leadXChange2)
+
+		playersWindow.fill((96,168,48),rect = (0,430,1200,170))
+		playersWindow.fill(((115,194,251)),rect = (0,0,1200,430))
+
 		# here we chwck all the events and handle them 
 		for event in pygame.event.get():
 			if event.type == pygame.QUIT:
 				pygame.quit()
 				quit()
-				#mainGame()
 				run = False
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_RIGHT:
@@ -642,8 +783,6 @@ def ComputerVS():
 				if event.key == pygame.K_UP:
 					if jumping1 == False and leadY1 == jumpHeight1:
 						jumping1 = True
-				#if event.key == pygame.K_DOWN:
-				#	leadYChange1 = 1
 			if event.type == pygame.KEYUP:
 				if event.key == pygame.K_RIGHT:
 					leadXChange1 = 0
@@ -652,26 +791,29 @@ def ComputerVS():
 		# here we change the x and y cordenates to 
 		# move the players right and left 
 		leadX1 += leadXChange1
+		movmentComp = particle.AIFunc(jumpingC,leadX2,playerWidth)
+		leadX2 = movmentComp[0]
+		jumpingC = movmentComp[1]
 		# here are the boundries for moving the players
 		if leadX1 <= maxWidthL or leadX1 + playerWidth >= maxWidthR:
 			leadX1 += -leadXChange1
+		if leadX2 <= maxWidthL or leadX2 + playerWidth >= maxWidthR:
+			leadX2 += -5
 		# here we apply the function responsible for making the players jump
 		if jumping1:
 			returned = jumping(jumping1,maxJump1,leadY1,up1,jumpHeight1)
 			jumping1,maxJump1,leadY1,up1,jumpHeight1 = returned[0],returned[1]\
 			,returned[2],returned[3],returned[4]
 
-		# here we draw the hitboxes for thentwo players 
-		hitboxP1 = (leadX1,leadY1,playerWidth,playerHeight)
-		hitboxP2 = (leadX2 + 25,leadY2,playerWidth,playerHeight)
-		# we draw the rectangles around the hitboxes 
-		rectP1 = pygame.draw.rect(playersWindow,(255,0,0),hitboxP1,2)
-		rectP2 = pygame.draw.rect(playersWindow,(255,0,0),hitboxP2,2)
+		if jumpingC:
+			returned = jumping(jumpingC,maxJump2,leadY2,up2,jumpHeight2)
+			jumpingC,maxJump2,leadY2,up2,jumpHeight2 = returned[0],returned[1]\
+			,returned[2],returned[3],returned[4]
+
 
 		# here we move the ball
 		particle.move()
-		# here we check for collisions between the ball and the goals 
-		particle.goalBounce(goalLR,goalRR,goalW,goalH)
+		
 		# here we check if the ball hit any walls
 		particle.bounce(goalLX,goalLY,goalW,goalH)
 		# here we draw the ball
@@ -681,6 +823,7 @@ def ComputerVS():
 		playersWindow.blit(goalR,[goalRX,goalRY])
 		playersWindow.blit(player1imgB,[leadX1,leadY1])
 		playersWindow.blit(player2imgB,[leadX2,leadY2])
+
 
 		# here we apply the functiion that checks if a goal is scored
 		# and increases the score accordingly
@@ -714,17 +857,6 @@ def ComputerVS():
 				leadX1 -= 5
 			if leadX2 + playerWidth < maxWidthR: 
 				leadX2 += 5
-
-		# here we apply the collision function and call the collide function 
-		# accordingly 
-		isCollided = particle.isCollision(rectP1)
-		if isCollided:
-			particle.collide(leadX1,leadY1,leadXChange1)
-
-		isCollided2 = particle.isCollision2(rectP2)
-		if isCollided2:
-			particle.collide2(leadX2,leadY2,leadXChange2)
-
 
 		insertMessage("Player 1: " + str(score1),\
 			(0,180,0),20,[10,0],playersWindow)
@@ -786,6 +918,3 @@ def mainGame():
 	quit()
 
 mainGame()
-
-
-		
