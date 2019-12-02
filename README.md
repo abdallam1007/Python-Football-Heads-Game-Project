@@ -13,13 +13,11 @@ Movement:
   -	“right arrow” >> move forward
   -	“left arrow” >> move backward
   -	“up arrow” >> jump
-  -	“down arrow” >> move the leg to shoot the ball 
 
   If there is more than one player:
   -	Letter “D” >> move forward
   -	Letter “A” >> move backward
   -	Letter “W” >> jump
-  -	Letter “S” >> move the leg to shoot the ball
 
 Features and user interface: when the user open the game the first window will have two choices one of them is a one player against one player mode,
 the second choice is one player against computer.It will also have an option to show the instructions of the game.
@@ -43,7 +41,8 @@ Physics: I will implement physics in my project. To make the movement of the bal
 
 Libraries I will use: (Note: I might add or remove from these libraries depending on what the project needs)
 -	PyGame
--	Physics
+-	math
+-       time
 
 First check point (Due Sunday November 24):
 -	I will be done with the two players mode 
